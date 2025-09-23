@@ -1,0 +1,331 @@
+/* Simple and clean cashier system styles */
+/* Color Palette: #F9F7F7, #DBE2EF, #3F72AF, #112D4E */
+
+body {
+    background-color: #F9F7F7;
+    color: #112D4E;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: #112D4E;
+    color: #F9F7F7;
+    padding: 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.sidebar-header {
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid #3F72AF;
+    background-color: #0D1F36;
+}
+
+.sidebar-brand {
+    color: #F9F7F7 !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.sidebar-brand:hover {
+    color: #DBE2EF !important;
+    text-decoration: none;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-item {
+    border-bottom: 1px solid rgba(219, 226, 239, 0.1);
+}
+
+.sidebar-item.active {
+    background-color: #3F72AF;
+}
+
+.sidebar-item.active .sidebar-link {
+    color: #F9F7F7;
+    background-color: #3F72AF;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    color: #DBE2EF;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.sidebar-link:hover {
+    background-color: #3F72AF;
+    color: #F9F7F7;
+    text-decoration: none;
+}
+
+.sidebar-link .icon {
+    margin-right: 0.75rem;
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+/* Main Content Area */
+.main-content {
+    margin-left: 250px;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    padding: 2rem;
+}
+
+/* Mobile Toggle Button */
+.mobile-toggle {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1001;
+    background-color: #112D4E;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobile-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: #F9F7F7;
+    margin: 2px 0;
+    transition: 0.3s;
+}
+
+.mobile-toggle:hover span {
+    background-color: #DBE2EF;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .sidebar.show {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .content-wrapper {
+        padding: 3rem 1rem 1rem 1rem;
+    }
+}
+
+/* Sidebar Overlay for Mobile */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sidebar-overlay.show {
+        display: block;
+    }
+}
+
+/* Cards */
+.card {
+    background-color: #F9F7F7;
+    border: 1px solid #DBE2EF;
+    box-shadow: 0 2px 4px rgba(17, 45, 78, 0.1);
+}
+
+.card-header {
+    background-color: #3F72AF !important;
+    color: #F9F7F7 !important;
+    border-bottom: 1px solid #DBE2EF;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #AED6CF;
+    border-color: #3F72AF;
+    color: #112D4E;
+}
+
+.btn-primary:hover {
+    background-color: #112D4E;
+    border-color: #112D4E;
+    color: #F9F7F7;
+}
+
+.btn-success {
+    background-color: #DBE2EF;
+    border-color: #3F72AF;
+    color: #112D4E;
+}
+
+.btn-success:hover {
+    background-color: #3F72AF;
+    border-color: #112D4E;
+    color: #F9F7F7;
+}
+
+.btn-info {
+    background-color: #F9F7F7;
+    border-color: #3F72AF;
+    color: #3F72AF;
+}
+
+.btn-info:hover {
+    background-color: #DBE2EF;
+    border-color: #112D4E;
+    color: #112D4E;
+}
+
+.btn-warning {
+    background-color: #DBE2EF;
+    border-color: #3F72AF;
+    color: #112D4E;
+}
+
+.btn-warning:hover {
+    background-color: #3F72AF;
+    border-color: #112D4E;
+    color: #F9F7F7;
+}
+
+.btn-secondary {
+    background-color: #DBE2EF;
+    border-color: #3F72AF;
+    color: #112D4E;
+}
+
+.btn-secondary:hover {
+    background-color: #112D4E;
+    border-color: #112D4E;
+    color: #F9F7F7;
+}
+
+/* Forms */
+.form-control {
+    background-color: #F9F7F7;
+    border-color: #DBE2EF;
+    color: #112D4E;
+}
+
+.form-control:focus {
+    background-color: #F9F7F7;
+    border-color: #3F72AF;
+    color: #112D4E;
+    box-shadow: 0 0 0 0.2rem rgba(63, 114, 175, 0.25);
+}
+
+/* Tables */
+.table {
+    background-color: #F9F7F7;
+    color: #112D4E;
+}
+
+.table thead th {
+    background-color: #3F72AF !important;
+    color: #F9F7F7 !important;
+    border-bottom: 2px solid #DBE2EF;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #DBE2EF;
+}
+
+/* Badges */
+.badge.bg-primary {
+    background-color: #3F72AF !important;
+    color: #F9F7F7;
+}
+
+.badge.bg-success {
+    background-color: #DBE2EF !important;
+    color: #112D4E;
+}
+
+.badge.bg-info {
+    background-color: #F9F7F7 !important;
+    color: #3F72AF;
+    border: 1px solid #3F72AF;
+}
+
+.badge.bg-warning {
+    background-color: #DBE2EF !important;
+    color: #112D4E;
+}
+
+/* Product cards */
+.product-card {
+    background-color: #F9F7F7;
+    border: 1px solid #DBE2EF;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.product-card:hover {
+    background-color: #DBE2EF;
+    border-color: #3F72AF;
+    transform: translateY(-2px);
+}
+
+/* Cart styling */
+.cart-item {
+    background-color: #DBE2EF;
+    border-left: 4px solid #3F72AF;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.cart-total {
+    background-color: #3F72AF;
+    color: #F9F7F7;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+/* Alerts */
+.alert-success {
+    background-color: #DBE2EF;
+    color: #112D4E;
+    border-color: #3F72AF;
+}
+
+.alert-danger {
+    background-color: #112D4E;
+    color: #F9F7F7;
+    border-color: #3F72AF;
+}
