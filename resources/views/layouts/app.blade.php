@@ -14,24 +14,96 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h4><a href="{{ route('products.index') }}" class="sidebar-brand">Sistem Kasir</a></h4>
+            @auth
+                <h4><a href="{{ Auth::user()->isAdmin() ? route('admin.dashboard') : route('products.index') }}" class="sidebar-brand">Sistem Kasir</a></h4>
+            @else
+                <h4><a href="{{ route('login') }}" class="sidebar-brand">Sistem Kasir</a></h4>
+            @endauth
         </div>
         <ul class="sidebar-nav">
-            <li class="sidebar-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
-                <a href="{{ route('products.index') }}" class="sidebar-link">
-                    <span>Produk</span>
-                </a>
-            </li>
-            <li class="sidebar-item {{ request()->routeIs('sales.cashier') ? 'active' : '' }}">
-                <a href="{{ route('sales.cashier') }}" class="sidebar-link">
-                    <span>Kasir</span>
-                </a>
-            </li>
-            <li class="sidebar-item {{ request()->routeIs('sales.index') ? 'active' : '' }}">
-                <a href="{{ route('sales.index') }}" class="sidebar-link">
-                    <span>Riwayat Penjualan</span>
-                </a>
-            </li>
+            @auth
+                @if(Auth::user()->isAdmin())
+                    <!-- Admin Menu -->
+                    <li class="sidebar-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                        <a href="{{ route('admin.dashboard') }}" class="sidebar-link">
+                            <i class="icon">📊</i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ request()->routeIs('products.*') ? 'active' : '' }}">
+                        <a href="{{ route('products.index') }}" class="sidebar-link">
+                            <i class="icon">📦</i>
+                            <span>Kelola Produk</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ request()->routeIs('admin.users') ? 'active' : '' }}">
+                        <a href="{{ route('admin.users') }}" class="sidebar-link">
+                            <i class="icon">👥</i>
+                            <span>Kelola User</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item {{ request()->routeIs('admin.transactions') ? 'active' : '' }}">
+                        <a href="{{ route('admin.transactions') }}" class="sidebar-link">
+                            <i class="icon">📊</i>
+                            <span>Laporan Transaksi</span>
+                        </a>
+                    </li>
+                @endif
+                
+                <!-- User Menu (available to all authenticated users) -->
+                <li class="sidebar-item {{ request()->routeIs('products.index') && !request()->routeIs('products.create') && !request()->routeIs('products.edit') ? 'active' : '' }}">
+                    <a href="{{ route('products.index') }}" class="sidebar-link">
+                        <i class="icon">📦</i>
+                        <span>Produk</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ request()->routeIs('sales.cashier') ? 'active' : '' }}">
+                    <a href="{{ route('sales.cashier') }}" class="sidebar-link">
+                        <i class="icon">💰</i>
+                        <span>Kasir</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ request()->routeIs('sales.index') ? 'active' : '' }}">
+                    <a href="{{ route('sales.index') }}" class="sidebar-link">
+                        <i class="icon">📊</i>
+                        <span>Riwayat Penjualan</span>
+                    </a>
+                </li>
+                
+                <!-- User Info and Logout -->
+                <li class="sidebar-item mt-3" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1rem;">
+                    <div class="sidebar-link">
+                        <i class="icon">👤</i>
+                        <div>
+                            <small>{{ Auth::user()->name }}</small><br>
+                            <small class="text-muted">{{ Auth::user()->role === 'admin' ? 'Administrator' : 'User' }}</small>
+                        </div>
+                    </div>
+                </li>
+                <li class="sidebar-item">
+                    <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
+                        @csrf
+                        <button type="submit" class="sidebar-link btn btn-link text-start w-100" style="border: none; background: none; color: #DBE2EF;">
+                            <i class="icon">🚪</i>
+                            <span>Logout</span>
+                        </button>
+                    </form>
+                </li>
+            @else
+                <!-- Guest Menu -->
+                <li class="sidebar-item {{ request()->routeIs('login') ? 'active' : '' }}">
+                    <a href="{{ route('login') }}" class="sidebar-link">
+                        <i class="icon">🔐</i>
+                        <span>Login</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ request()->routeIs('register') ? 'active' : '' }}">
+                    <a href="{{ route('register') }}" class="sidebar-link">
+                        <i class="icon">📝</i>
+                        <span>Register</span>
+                    </a>
+                </li>
+            @endauth
         </ul>
     </div>
 
