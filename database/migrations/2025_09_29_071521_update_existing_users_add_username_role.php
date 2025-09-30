@@ -12,23 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // First, add columns without constraints
-        Schema::table('users', function (Blueprint $table) {
-            if (!Schema::hasColumn('users', 'username')) {
-                $table->string('username')->nullable()->after('name');
-            }
-            if (!Schema::hasColumn('users', 'role')) {
-                $table->enum('role', ['admin', 'user'])->default('user')->after('email');
-            }
-        });
-
-        // Update existing users with usernames based on their email or ID
+        // Only update existing users with usernames if they don't have one
+        // The columns should already exist from the previous migration
         DB::statement("UPDATE users SET username = CONCAT('user', id) WHERE username IS NULL OR username = ''");
-
-        // Now add unique constraint to username
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('username')->unique()->change();
-        });
     }
 
     /**
@@ -36,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['username', 'role']);
-        });
+        // This migration only updates data, so no schema changes to reverse
+        // If needed, you could reset usernames to null, but it's generally not recommended
+        // to reverse data changes in migrations
     }
 };
